@@ -8,12 +8,12 @@ dpu:
     username: 
     password: 
     platform: cumulus_cvx
-    hostname: 172.20.20.4
+    hostname: 172.20.20.5
 switch:
     username: 
     password: 
     platform: cumulus_cvx
-    hostname: 172.20.20.2
+    hostname: 172.20.20.4
 acm:
     username: 
     password: 
@@ -23,4 +23,4 @@ tenant:
     username: 
     password: 
     platform: linux
-    hostname: 172.20.20.5
+    hostname: 172.20.20.2

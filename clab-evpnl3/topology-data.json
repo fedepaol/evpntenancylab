@@ -49,6 +49,12 @@
         {
           "host-ip": "",
           "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
           "port": 11443,
           "protocol": "tcp"
         },
@@ -62,12 +68,6 @@
           "host-ip": "",
           "host-port": 0,
           "port": 443,
-          "protocol": "tcp"
-        },
-        {
-          "host-ip": "",
-          "host-port": 0,
-          "port": 80,
           "protocol": "tcp"
         }
       ]
@@ -114,9 +114,9 @@
       "image": "networkop/cx:5.3.0",
       "mgmt-net": "",
       "mgmt-intf": "",
-      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-address": "172.20.20.5",
       "mgmt-ipv4-prefix-length": 24,
-      "mgmt-ipv6-address": "3fff:172:20:20::4",
+      "mgmt-ipv6-address": "3fff:172:20:20::5",
       "mgmt-ipv6-prefix-length": 64,
       "mac-address": "",
       "labels": {
@@ -145,9 +145,9 @@
       "image": "networkop/cx:5.3.0",
       "mgmt-net": "",
       "mgmt-intf": "",
-      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-address": "172.20.20.4",
       "mgmt-ipv4-prefix-length": 24,
-      "mgmt-ipv6-address": "3fff:172:20:20::2",
+      "mgmt-ipv6-address": "3fff:172:20:20::4",
       "mgmt-ipv6-prefix-length": 64,
       "mac-address": "",
       "labels": {
@@ -176,9 +176,9 @@
       "image": "praqma/network-multitool:latest",
       "mgmt-net": "",
       "mgmt-intf": "",
-      "mgmt-ipv4-address": "172.20.20.5",
+      "mgmt-ipv4-address": "172.20.20.2",
       "mgmt-ipv4-prefix-length": 24,
-      "mgmt-ipv6-address": "3fff:172:20:20::5",
+      "mgmt-ipv6-address": "3fff:172:20:20::2",
       "mgmt-ipv6-prefix-length": 64,
       "mac-address": "",
       "labels": {
@@ -197,18 +197,6 @@
         {
           "host-ip": "",
           "host-port": 0,
-          "port": 443,
-          "protocol": "tcp"
-        },
-        {
-          "host-ip": "",
-          "host-port": 0,
-          "port": 80,
-          "protocol": "tcp"
-        },
-        {
-          "host-ip": "",
-          "host-port": 0,
           "port": 11443,
           "protocol": "tcp"
         },
@@ -216,6 +204,18 @@
           "host-ip": "",
           "host-port": 0,
           "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
           "protocol": "tcp"
         }
       ]
@@ -227,13 +227,13 @@
         "a": {
           "node": "switch",
           "interface": "swp1",
-          "mac": "aa:c1:ab:a6:a0:61",
+          "mac": "aa:c1:ab:42:f5:77",
           "peer": "z"
         },
         "z": {
           "node": "dpu",
           "interface": "swp1",
-          "mac": "aa:c1:ab:d3:af:28",
+          "mac": "aa:c1:ab:a8:44:c2",
           "peer": "a"
         }
       }
@@ -243,13 +243,13 @@
         "a": {
           "node": "switch",
           "interface": "swp2",
-          "mac": "aa:c1:ab:6a:44:80",
+          "mac": "aa:c1:ab:8f:75:4f",
           "peer": "z"
         },
         "z": {
           "node": "dpu",
           "interface": "swp2",
-          "mac": "aa:c1:ab:cb:75:b1",
+          "mac": "aa:c1:ab:c2:d3:fb",
           "peer": "a"
         }
       }
@@ -259,13 +259,13 @@
         "a": {
           "node": "switch",
           "interface": "swp3",
-          "mac": "aa:c1:ab:ad:a0:5f",
+          "mac": "aa:c1:ab:43:ce:5e",
           "peer": "z"
         },
         "z": {
           "node": "acmswitch",
           "interface": "swp1",
-          "mac": "aa:c1:ab:80:67:16",
+          "mac": "aa:c1:ab:22:8c:8e",
           "peer": "a"
         }
       }
@@ -275,13 +275,13 @@
         "a": {
           "node": "acmswitch",
           "interface": "swp2",
-          "mac": "aa:c1:ab:6a:50:02",
+          "mac": "aa:c1:ab:7a:13:48",
           "peer": "z"
         },
         "z": {
           "node": "acm",
           "interface": "eth1",
-          "mac": "aa:c1:ab:88:1d:ae",
+          "mac": "aa:c1:ab:9e:eb:25",
           "peer": "a"
         }
       }
@@ -291,13 +291,13 @@
         "a": {
           "node": "tenant",
           "interface": "eth1",
-          "mac": "aa:c1:ab:41:d2:88",
+          "mac": "aa:c1:ab:ba:97:4b",
           "peer": "z"
         },
         "z": {
           "node": "dpu",
           "interface": "swp3",
-          "mac": "aa:c1:ab:8f:d0:51",
+          "mac": "aa:c1:ab:45:79:07",
           "peer": "a"
         }
       }
@@ -307,13 +307,13 @@
         "a": {
           "node": "tenant",
           "interface": "eth2",
-          "mac": "aa:c1:ab:7f:e6:ac",
+          "mac": "aa:c1:ab:69:77:88",
           "peer": "z"
         },
         "z": {
           "node": "dpu",
           "interface": "swp4",
-          "mac": "aa:c1:ab:10:bf:f1",
+          "mac": "aa:c1:ab:f7:7d:b5",
           "peer": "a"
         }
       }
