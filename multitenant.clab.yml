@@ -23,11 +23,7 @@ topology:
       cmd: bash /setup_nvue.sh
 
     acmswitch:
-      kind: linux
-      image: quay.io/frrouting/frr:10.4.1
-      binds:
-        - acmswitch/:/etc/frr/
-        - acmswitch/setup_nvue.sh:/setup_nvue.sh
+      kind: bridge
 
     tenant:
       kind: linux

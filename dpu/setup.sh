@@ -1,49 +1,54 @@
-#!/bin/bash
-#
-
-# VTEP IP
-ip addr add 100.64.0.1/32 dev lo
-
-# Leaf - spine leg
-ip addr add 10.0.0.3/31 dev tospine
-
-# L3 VRF
-ip link add red type vrf table 1100
-
-# Leaf - host leg
-ip link set toserver1 master red
-ip addr add 10.1.0.0/31 dev toserver1
-
-ip link set red up
-ip link add br100 type bridge
-ip link set br100 master red addrgenmode none
-ip link set br100 addr aa:bb:cc:00:00:01
-ip link add vni100 type vxlan local 100.64.0.1 dstport 4789 id 100 nolearning
-ip link set vni100 master br100 addrgenmode none
-ip link set vni100 type bridge_slave neigh_suppress on learning off
-ip link set vni100 up
-ip link set br100 up
-
-ip link add vrfstorage type vrf table 1300
-ip link set vrfstorage up
-
-ip link add br300 type bridge
-ip link set br300 master vrfstorage addrgenmode none
-ip link set br300 addr aa:bb:cc:00:00:21
-ip link add vni300 type vxlan local 100.64.0.1 dstport 4789 id 300 nolearning
-ip link set vni300 master br300 addrgenmode none
-ip link set vni300 type bridge_slave neigh_suppress on learning off
-ip link set vni300 up
-ip link set br300 up
-
-ip link add external type vrf table 1400
-ip link set external up
-
-ip link add br400 type bridge
-ip link set br400 master external addrgenmode none
-ip link set br400 addr aa:bb:cc:00:00:31
-ip link add vni400 type vxlan local 100.64.0.1 dstport 4789 id 400 nolearning
-ip link set vni400 master br400 addrgenmode none
-ip link set vni400 type bridge_slave neigh_suppress on learning off
-ip link set vni400 up
-ip link set br400 up
+nv set bridge domain br_default vlan 11 vni 10010
+nv set bridge domain br_default vlan 21 vni 10020
+nv set evpn enable on
+nv set evpn route-advertise
+nv set interface lo ip address 11.0.0.0/32
+nv set interface lo type loopback
+nv set interface swp1,swp2,swp3,swp4 link mtu 9000
+nv set interface swp1,swp2,swp3,swp4 type swp
+nv set interface swp3 bridge domain br_default access 11
+nv set interface swp4 bridge domain br_default access 21
+nv set interface vlan11 ip address 10.0.121.2/29
+nv set interface vlan11 ip vrf RED
+nv set interface vlan11 vlan 11
+nv set interface vlan11,21 type svi
+nv set interface vlan21 ip address 10.0.122.2/29
+nv set interface vlan21 ip vrf BLUE
+nv set interface vlan21 vlan 21
+nv set nve vxlan arp-nd-suppress on
+nv set nve vxlan enable on
+nv set nve vxlan source address 11.0.0.0
+nv set router bgp enable on
+nv set router bgp graceful-restart mode full
+nv set vrf BLUE evpn enable on
+nv set vrf BLUE evpn vni 100002
+nv set vrf BLUE loopback ip address 11.0.0.0/32
+nv set vrf BLUE router bgp address-family ipv4-unicast enable on
+nv set vrf BLUE router bgp address-family ipv4-unicast redistribute connected enable on
+nv set vrf BLUE router bgp address-family ipv4-unicast route-export to-evpn enable on
+nv set vrf BLUE router bgp autonomous-system 65101
+nv set vrf BLUE router bgp enable on
+nv set vrf BLUE router bgp router-id 11.0.0.0
+nv set vrf RED evpn enable on
+nv set vrf RED evpn vni 100001
+nv set vrf RED loopback ip address 11.0.0.0/32
+nv set vrf RED router bgp address-family ipv4-unicast enable on
+nv set vrf RED router bgp address-family ipv4-unicast redistribute connected enable on
+nv set vrf RED router bgp address-family ipv4-unicast route-export to-evpn enable on
+nv set vrf RED router bgp autonomous-system 65101
+nv set vrf RED router bgp enable on
+nv set vrf RED router bgp router-id 11.0.0.0
+nv set vrf default router bgp address-family ipv4-unicast enable on
+nv set vrf default router bgp address-family ipv4-unicast redistribute connected enable on
+nv set vrf default router bgp address-family l2vpn-evpn enable on
+nv set vrf default router bgp autonomous-system 65101
+nv set vrf default router bgp enable on
+nv set vrf default router bgp neighbor swp1 peer-group hbnzt
+nv set vrf default router bgp neighbor swp1 type unnumbered
+nv set vrf default router bgp neighbor swp2 peer-group hbnzt
+nv set vrf default router bgp neighbor swp2 type unnumbered
+nv set vrf default router bgp path-selection multipath aspath-ignore on
+nv set vrf default router bgp peer-group hbnzt address-family ipv4-unicast enable on
+nv set vrf default router bgp peer-group hbnzt address-family l2vpn-evpn enable on
+nv set vrf default router bgp peer-group hbnzt remote-as external
+nv set vrf default router bgp router-id 11.0.0.0
