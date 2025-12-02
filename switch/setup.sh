@@ -74,9 +74,13 @@ nv set vrf RED loopback ip address 10.6.156.1/32
 nv set vrf RED router bgp address-family ipv4-unicast enable on
 nv set vrf RED router bgp address-family ipv4-unicast redistribute connected enable on
 nv set vrf RED router bgp address-family ipv4-unicast route-export to-evpn enable on
+nv set vrf RED router bgp address-family ipv4-unicast route-import from-vrf list default
 nv set vrf RED router bgp autonomous-system 65001
 nv set vrf RED router bgp enable on
 nv set vrf RED router bgp router-id 10.6.156.1
+
+# Route leaking: Import RED VRF routes into default VRF
+nv set vrf default router bgp address-family ipv4-unicast route-import from-vrf list RED
 
 # Apply configuration - continue even if some services fail to restart
 echo "Applying NVUE configuration..."
