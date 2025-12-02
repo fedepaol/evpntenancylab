@@ -1,0 +1,56 @@
+name: evpnl3
+
+topology:
+  nodes:
+    switch:
+      kind: cumulus_cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      cpu: 1.5
+      memory: 2g
+      binds:
+        - storageleaf/interfaces:/etc/network/interfaces
+        - storageleaf/frr.conf:/etc/frr/frr.conf
+        - storageleaf/daemons:/etc/frr/daemons
+    dpu:
+      kind: cumulus_cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      cpu: 1.5
+      memory: 2g
+      binds:
+        - dpu/setup_nvue.sh:/setup_nvue.sh
+      cmd: bash /setup_nvue.sh
+
+    acmswitch:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - acmswitch/:/etc/frr/
+        - acmswitch/setup_nvue.sh:/setup_nvue.sh
+
+    tenant:
+      kind: linux
+      image: praqma/network-multitool:latest
+      cpu: 0.25
+      memory: 256m
+      binds:
+        - SERVER2/setup.sh:/setup.sh
+      cmd: bash /setup.sh
+
+    acm:
+      kind: linux
+      image: praqma/network-multitool:latest
+      cpu: 0.25
+      memory: 256m
+      binds:
+        - acm/setup.sh:/setup.sh
+      cmd: bash /setup.sh
+
+  links:
+    - endpoints: ["switch:swp1", "dpu:swp1"]
+    - endpoints: ["switch:swp2", "dpu:swp2"]
+    - endpoints: ["switch:swp3", "acmswitch:swp1"]
+    - endpoints: ["acmswitch:swp2", "acm:eth1"]
+    - endpoints: ["tenant:eth1", "dpu:swp3"]
+    - endpoints: ["tenant:eth2", "dpu:swp4"]
