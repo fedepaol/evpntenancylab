@@ -1,16 +1,31 @@
 #!/bin/bash
 #
-# NVUE-based configuration for leaf1
+# NVUE-based configuration for switch
 # This replaces the traditional interfaces file and FRR configuration
 #
 
-# Wait for NVUE to be ready
-sleep 5
+# Wait for NVUE to be ready - retry first command until it succeeds or timeout
+timeout=60
+elapsed=0
+interval=2
 
-nv set bridge domain rdma untagged 1
+echo "Waiting for NVUE to be ready..."
+while [ $elapsed -lt $timeout ]; do
+    if nv set bridge domain rdma untagged 1 2>/dev/null; then
+        echo "NVUE is ready, continuing with configuration..."
+        break
+    fi
+    sleep $interval
+    elapsed=$((elapsed + interval))
+done
+
+if [ $elapsed -ge $timeout ]; then
+    echo "ERROR: NVUE failed to become ready within ${timeout} seconds"
+    exit 1
+fi
 nv set evpn enable on
-nv set interface eth0 ip address
 nv set interface eth0 ip vrf mgmt
+nv set interface eth0 ip address dhcp
 nv set interface eth0 type eth
 nv set interface lo ip address 10.6.156.1/32
 nv set interface lo type loopback
@@ -23,10 +38,7 @@ nv set router bgp graceful-restart mode full
 nv set router bgp router-id 10.6.156.1
 nv set service lldp tx-hold-multiplier 3
 nv set service lldp tx-interval 100
-nv set system forwarding
 nv set system hostname cumulus
-nv set system wjh enable on
-nv set vrf default loopback ip address
 nv set vrf default router bgp address-family ipv4-unicast enable on
 nv set vrf default router bgp address-family ipv4-unicast redistribute connected enable on
 nv set vrf default router bgp address-family ipv4-unicast redistribute static enable on
@@ -45,3 +57,8 @@ nv set vrf default router bgp peer-group hbnzt address-family l2vpn-evpn enable 
 nv set vrf default router bgp peer-group hbnzt remote-as external
 nv set vrf default router static 0.0.0.0/0 address-family ipv4-unicast
 nv set vrf default router static 0.0.0.0/0 via 10.6.135.254 type ipv4-address
+
+# Apply configuration
+nv config apply -y
+
+echo "NVUE configuration applied successfully for switch"

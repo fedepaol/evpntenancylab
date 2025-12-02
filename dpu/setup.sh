@@ -1,4 +1,27 @@
-nv set bridge domain br_default vlan 11 vni 10010
+#!/bin/bash
+#
+# NVUE-based configuration for DPU
+#
+
+# Wait for NVUE to be ready - retry first command until it succeeds or timeout
+timeout=60
+elapsed=0
+interval=2
+
+echo "Waiting for NVUE to be ready..."
+while [ $elapsed -lt $timeout ]; do
+    if nv set bridge domain br_default vlan 11 vni 10010 2>/dev/null; then
+        echo "NVUE is ready, continuing with configuration..."
+        break
+    fi
+    sleep $interval
+    elapsed=$((elapsed + interval))
+done
+
+if [ $elapsed -ge $timeout ]; then
+    echo "ERROR: NVUE failed to become ready within ${timeout} seconds"
+    exit 1
+fi
 nv set bridge domain br_default vlan 21 vni 10020
 nv set evpn enable on
 nv set evpn route-advertise
@@ -52,3 +75,8 @@ nv set vrf default router bgp peer-group hbnzt address-family ipv4-unicast enabl
 nv set vrf default router bgp peer-group hbnzt address-family l2vpn-evpn enable on
 nv set vrf default router bgp peer-group hbnzt remote-as external
 nv set vrf default router bgp router-id 11.0.0.0
+
+# Apply configuration
+nv config apply -y
+
+echo "NVUE configuration applied successfully for DPU"

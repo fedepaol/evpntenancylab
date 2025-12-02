@@ -1,14 +1,28 @@
 #!/bin/bash
 #
-# NVUE-based configuration for leaf1
+# NVUE-based configuration for acmswitch
 # This replaces the traditional interfaces file and FRR configuration
 #
 
-# Wait for NVUE to be ready
-sleep 5
+# Wait for NVUE to be ready - retry first command until it succeeds or timeout
+timeout=60
+elapsed=0
+interval=2
 
-# System configuration - Loopback and anycast MAC
-nv set interface lo ip address 100.64.0.1/32
+echo "Waiting for NVUE to be ready..."
+while [ $elapsed -lt $timeout ]; do
+    if nv set interface lo ip address 100.64.0.1/32 2>/dev/null; then
+        echo "NVUE is ready, continuing with configuration..."
+        break
+    fi
+    sleep $interval
+    elapsed=$((elapsed + interval))
+done
+
+if [ $elapsed -ge $timeout ]; then
+    echo "ERROR: NVUE failed to become ready within ${timeout} seconds"
+    exit 1
+fi
 
 # Configure management VRF
 nv set vrf mgmt

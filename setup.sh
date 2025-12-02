@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 
-sudo clab deploy --reconfigure --topo multitenant.clab.yml
 
 # Create and setup acmswitch bridge if it doesn't exist
 if ! ip link show acmswitch &> /dev/null; then
@@ -13,5 +12,6 @@ else
     sudo ip link set acmswitch up
 fi
 
+sudo clab deploy --reconfigure --topo multitenant.clab.yml
 docker exec clab-evpnl3-switch /setup.sh
 docker exec clab-evpnl3-dpu /setup.sh

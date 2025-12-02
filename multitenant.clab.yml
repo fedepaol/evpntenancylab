@@ -9,9 +9,7 @@ topology:
       cpu: 1.5
       memory: 2g
       binds:
-        - storageleaf/interfaces:/etc/network/interfaces
-        - storageleaf/frr.conf:/etc/frr/frr.conf
-        - storageleaf/daemons:/etc/frr/daemons
+        - switch/setup.sh:/setup.sh
     dpu:
       kind: cumulus_cvx
       image: networkop/cx:5.3.0
@@ -19,8 +17,7 @@ topology:
       cpu: 1.5
       memory: 2g
       binds:
-        - dpu/setup_nvue.sh:/setup_nvue.sh
-      cmd: bash /setup_nvue.sh
+        - dpu/setup.sh:/setup.sh
 
     acmswitch:
       kind: bridge
@@ -31,7 +28,7 @@ topology:
       cpu: 0.25
       memory: 256m
       binds:
-        - SERVER2/setup.sh:/setup.sh
+        - tenant/setup.sh:/setup.sh
       cmd: bash /setup.sh
 
     acm:

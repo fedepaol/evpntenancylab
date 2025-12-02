@@ -1,0 +1,322 @@
+{
+  "name": "evpnl3",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-da774ccbdaf4",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "3fff:172:20:20::/64",
+        "ipv6-gw": "3fff:172:20:20::1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILzEhsjuvFBjgTTBQHuIb2NgAdLSZWKAwSnsmbKerC0h"],
+  "nodes": {
+    "acm": {
+      "index": "0",
+      "shortname": "acm",
+      "longname": "clab-evpnl3-acm",
+      "fqdn": "acm.evpnl3.io",
+      "group": "",
+      "labdir": "/home/fpaoline/devel/foxconn/clab-evpnl3/acm",
+      "kind": "linux",
+      "image": "praqma/network-multitool:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-da774ccbdaf4",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/fpaoline/devel/foxconn/clab-evpnl3/acm",
+        "clab-node-longname": "clab-evpnl3-acm",
+        "clab-node-name": "acm",
+        "clab-node-type": "",
+        "clab-owner": "fpaoline",
+        "clab-topo-file": "/home/fpaoline/devel/foxconn/multitenant.clab.yml",
+        "containerlab": "evpnl3"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "acmswitch": {
+      "index": "1",
+      "shortname": "acmswitch",
+      "longname": "clab-evpnl3-acmswitch",
+      "fqdn": "acmswitch.evpnl3.io",
+      "group": "",
+      "labdir": "/home/fpaoline/devel/foxconn/clab-evpnl3/acmswitch",
+      "kind": "bridge",
+      "image": "",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-da774ccbdaf4",
+        "clab-node-group": "",
+        "clab-node-kind": "bridge",
+        "clab-node-lab-dir": "/home/fpaoline/devel/foxconn/clab-evpnl3/acmswitch",
+        "clab-node-longname": "clab-evpnl3-acmswitch",
+        "clab-node-name": "acmswitch",
+        "clab-node-type": "",
+        "clab-owner": "fpaoline",
+        "clab-topo-file": "/home/fpaoline/devel/foxconn/multitenant.clab.yml",
+        "containerlab": "evpnl3"
+      },
+      "port-bindings": [
+      ]
+    },
+    "dpu": {
+      "index": "2",
+      "shortname": "dpu",
+      "longname": "clab-evpnl3-dpu",
+      "fqdn": "dpu.evpnl3.io",
+      "group": "",
+      "labdir": "/home/fpaoline/devel/foxconn/clab-evpnl3/dpu",
+      "kind": "cumulus_cvx",
+      "image": "networkop/cx:5.3.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::4",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-da774ccbdaf4",
+        "clab-node-group": "",
+        "clab-node-kind": "cumulus_cvx",
+        "clab-node-lab-dir": "/home/fpaoline/devel/foxconn/clab-evpnl3/dpu",
+        "clab-node-longname": "clab-evpnl3-dpu",
+        "clab-node-name": "dpu",
+        "clab-node-type": "",
+        "clab-owner": "fpaoline",
+        "clab-topo-file": "/home/fpaoline/devel/foxconn/multitenant.clab.yml",
+        "containerlab": "evpnl3"
+      },
+      "port-bindings": [
+      ]
+    },
+    "switch": {
+      "index": "3",
+      "shortname": "switch",
+      "longname": "clab-evpnl3-switch",
+      "fqdn": "switch.evpnl3.io",
+      "group": "",
+      "labdir": "/home/fpaoline/devel/foxconn/clab-evpnl3/switch",
+      "kind": "cumulus_cvx",
+      "image": "networkop/cx:5.3.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-da774ccbdaf4",
+        "clab-node-group": "",
+        "clab-node-kind": "cumulus_cvx",
+        "clab-node-lab-dir": "/home/fpaoline/devel/foxconn/clab-evpnl3/switch",
+        "clab-node-longname": "clab-evpnl3-switch",
+        "clab-node-name": "switch",
+        "clab-node-type": "",
+        "clab-owner": "fpaoline",
+        "clab-topo-file": "/home/fpaoline/devel/foxconn/multitenant.clab.yml",
+        "containerlab": "evpnl3"
+      },
+      "port-bindings": [
+      ]
+    },
+    "tenant": {
+      "index": "4",
+      "shortname": "tenant",
+      "longname": "clab-evpnl3-tenant",
+      "fqdn": "tenant.evpnl3.io",
+      "group": "",
+      "labdir": "/home/fpaoline/devel/foxconn/clab-evpnl3/tenant",
+      "kind": "linux",
+      "image": "praqma/network-multitool:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::5",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-da774ccbdaf4",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/fpaoline/devel/foxconn/clab-evpnl3/tenant",
+        "clab-node-longname": "clab-evpnl3-tenant",
+        "clab-node-name": "tenant",
+        "clab-node-type": "",
+        "clab-owner": "fpaoline",
+        "clab-topo-file": "/home/fpaoline/devel/foxconn/multitenant.clab.yml",
+        "containerlab": "evpnl3"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "endpoints": {
+        "a": {
+          "node": "switch",
+          "interface": "swp1",
+          "mac": "aa:c1:ab:a6:a0:61",
+          "peer": "z"
+        },
+        "z": {
+          "node": "dpu",
+          "interface": "swp1",
+          "mac": "aa:c1:ab:d3:af:28",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "switch",
+          "interface": "swp2",
+          "mac": "aa:c1:ab:6a:44:80",
+          "peer": "z"
+        },
+        "z": {
+          "node": "dpu",
+          "interface": "swp2",
+          "mac": "aa:c1:ab:cb:75:b1",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "switch",
+          "interface": "swp3",
+          "mac": "aa:c1:ab:ad:a0:5f",
+          "peer": "z"
+        },
+        "z": {
+          "node": "acmswitch",
+          "interface": "swp1",
+          "mac": "aa:c1:ab:80:67:16",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "acmswitch",
+          "interface": "swp2",
+          "mac": "aa:c1:ab:6a:50:02",
+          "peer": "z"
+        },
+        "z": {
+          "node": "acm",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:88:1d:ae",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "tenant",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:41:d2:88",
+          "peer": "z"
+        },
+        "z": {
+          "node": "dpu",
+          "interface": "swp3",
+          "mac": "aa:c1:ab:8f:d0:51",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "tenant",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:7f:e6:ac",
+          "peer": "z"
+        },
+        "z": {
+          "node": "dpu",
+          "interface": "swp4",
+          "mac": "aa:c1:ab:10:bf:f1",
+          "peer": "a"
+        }
+      }
+    }
+  ]
+}

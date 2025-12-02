@@ -1,0 +1,26 @@
+---
+acmswitch:
+    username: 
+    password: 
+    platform: bridge
+    hostname: 
+dpu:
+    username: 
+    password: 
+    platform: cumulus_cvx
+    hostname: 172.20.20.4
+switch:
+    username: 
+    password: 
+    platform: cumulus_cvx
+    hostname: 172.20.20.2
+acm:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.3
+tenant:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.5
