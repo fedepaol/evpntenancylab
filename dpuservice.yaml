@@ -145,10 +145,6 @@ items:
                         enable: on
                         vni:
                           {{ config.l3vni1 }}: {}
-                      loopback:
-                        ip:
-                          address:
-                            {{ ipaddresses.ip_lo.ip }}/32: {}
                       router:
                         bgp:
                           address-family:
@@ -168,10 +164,6 @@ items:
                         enable: on
                         vni:
                           {{ config.l3vni2 }}: {}
-                      loopback:
-                        ip:
-                          address:
-                            {{ ipaddresses.ip_lo.ip }}/32: {}
                       router:
                         bgp:
                           address-family:

@@ -50,7 +50,6 @@ nv set router bgp enable on
 nv set router bgp graceful-restart mode full
 nv set vrf BLUE evpn enable on
 nv set vrf BLUE evpn vni 100002
-nv set vrf BLUE loopback ip address 11.0.0.0/32
 nv set vrf BLUE router bgp address-family ipv4-unicast enable on
 nv set vrf BLUE router bgp address-family ipv4-unicast redistribute connected enable on
 nv set vrf BLUE router bgp address-family ipv4-unicast route-export to-evpn enable on
@@ -59,7 +58,6 @@ nv set vrf BLUE router bgp enable on
 nv set vrf BLUE router bgp router-id 11.0.0.0
 nv set vrf RED evpn enable on
 nv set vrf RED evpn vni 100001
-nv set vrf RED loopback ip address 11.0.0.0/32
 nv set vrf RED router bgp address-family ipv4-unicast enable on
 nv set vrf RED router bgp address-family ipv4-unicast redistribute connected enable on
 nv set vrf RED router bgp address-family ipv4-unicast route-export to-evpn enable on
