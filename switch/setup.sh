@@ -82,6 +82,12 @@ nv set vrf RED router bgp router-id 10.6.156.1
 # Route leaking: Import RED VRF routes into default VRF
 nv set vrf default router bgp address-family ipv4-unicast route-import from-vrf list RED
 
+# Configure SNAT for traffic leaving swp3 (10.6.135.0/24 subnet)
+nv set acl NAT_ALL type ipv4
+nv set acl NAT_ALL rule 10 match ip source-ip 0.0.0.0/0
+nv set acl NAT_ALL rule 10 action source-nat translate-ip 10.6.135.240
+nv set interface swp3 acl NAT_ALL outbound
+
 # Apply configuration - continue even if some services fail to restart
 echo "Applying NVUE configuration..."
 if nv config apply -y 2>&1 | tee /tmp/nvue_apply.log; then
