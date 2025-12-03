@@ -82,12 +82,6 @@ nv set vrf RED router bgp router-id 10.6.156.1
 # Route leaking: Import RED VRF routes into default VRF
 nv set vrf default router bgp address-family ipv4-unicast route-import from-vrf list RED
 
-# Configure SNAT for traffic leaving swp3 (10.6.135.0/24 subnet)
-nv set acl NAT_ALL type ipv4
-nv set acl NAT_ALL rule 10 match ip source-ip 0.0.0.0/0
-nv set acl NAT_ALL rule 10 action source-nat translate-ip 10.6.135.240
-nv set interface swp3 acl NAT_ALL outbound
-
 # Apply configuration - continue even if some services fail to restart
 echo "Applying NVUE configuration..."
 if nv config apply -y 2>&1 | tee /tmp/nvue_apply.log; then
@@ -99,5 +93,11 @@ fi
 
 # Ensure FRR is running even if restart failed
 systemctl start frr 2>/dev/null || true
+
+# Configure SNAT for traffic leaving swp3 (10.6.135.0/24 subnet)
+echo "Configuring SNAT for swp3 interface..."
+iptables -t nat -A POSTROUTING -o swp3 -j SNAT --to-source 10.6.135.240
+mkdir -p /etc/iptables
+iptables-save > /etc/iptables/rules.v4 2>/dev/null || true
 
 echo "Switch configuration complete"
