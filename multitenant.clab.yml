@@ -22,6 +22,15 @@ topology:
     acmswitch:
       kind: bridge
 
+    acmdefaultgw:
+      kind: linux
+      image: praqma/network-multitool:latest
+      cpu: 0.25
+      memory: 256m
+      binds:
+        - acmdefaultgw/setup.sh:/setup.sh
+      cmd: bash /setup.sh
+
     tenant:
       kind: linux
       image: praqma/network-multitool:latest
@@ -45,5 +54,6 @@ topology:
     - endpoints: ["switch:swp2", "dpu:swp2"]
     - endpoints: ["switch:swp3", "acmswitch:swp1"]
     - endpoints: ["acmswitch:swp2", "acm:eth1"]
+    - endpoints: ["acmswitch:swp3", "acmdefaultgw:eth1"]
     - endpoints: ["tenant:eth1", "dpu:swp3"]
     - endpoints: ["tenant:eth2", "dpu:swp4"]
