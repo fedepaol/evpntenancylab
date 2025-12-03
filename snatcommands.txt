@@ -1,0 +1,4 @@
+nv set acl NAT_ALL type ipv4
+nv set acl NAT_ALL rule 10 match ip source-ip 0.0.0.0/0
+nv set acl NAT_ALL rule 10 action source-nat translate-ip 10.6.135.240
+nv set interface swp65 acl NAT_ALL outbound
